@@ -9,12 +9,12 @@ use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase implements Listener{
     private string $text;
+
     protected function onEnable(): void
     {
         $this->saveDefaultConfig();
         $config = new Config($this->getDataFolder()."config.yml");
         $this->text = $config->get("text");
-
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getServer()->getLogger()->info("Have you a bug ? please contact me in my shop discord: https://discord.gg/yv7bQujyCN");
     }
