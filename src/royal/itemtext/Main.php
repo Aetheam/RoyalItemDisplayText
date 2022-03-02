@@ -1,4 +1,7 @@
 <?php
+
+//code use for update to pm4 and for add configuration
+//base source code : https://github.com/DaRealAqua/ItemDisplay
 namespace royal\itemtext;
 
 use pocketmine\event\entity\ItemSpawnEvent;
@@ -9,7 +12,6 @@ use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase implements Listener{
     private string $text;
-
     protected function onEnable(): void
     {
         $this->saveDefaultConfig();
@@ -18,9 +20,7 @@ class Main extends PluginBase implements Listener{
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->getServer()->getLogger()->info("Have you a bug ? please contact me in my shop discord: https://discord.gg/yv7bQujyCN");
     }
-
     public function drop(ItemSpawnEvent $event){
-
         $entity = $event->getEntity();
         $item = $entity->getItem();
         $iname = $item->getName();
