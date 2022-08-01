@@ -21,7 +21,25 @@ class Main extends PluginBase implements Listener{
         $this->getServer()->getLogger()->info("Have you a bug ? please contact me in my shop discord: https://discord.gg/yv7bQujyCN");
     }
     public function drop(ItemSpawnEvent $event){
+
         $entity = $event->getEntity();
+        $entities = $event->getEntity()->getWorld()->getNearbyEntities($entity->getBoundingBox()->expandedCopy(5, 5, 5));
+
+        if(empty($entities)) {
+            return;
+        }
+        if($entity instanceof ItemEntity) {
+            $originalItem = $entity->getItem();
+            foreach($entities as $e) {
+                if($e instanceof ItemEntity and $entity->getId() !== $e->getId()) {
+                    $item = $e->getItem();
+                    if($item->getId() === $originalItem->getId()) {
+                        $e->flagForDespawn();
+                        $entity->getItem()->setCount($originalItem->getCount() + $item->getCount());
+                    }
+                }
+            }
+        }
         $item = $entity->getItem();
         $iname = $item->getName();
         $icount = $item->getCount();
